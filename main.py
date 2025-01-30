@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.image.get_rect(center=(x, y))
     
     def gravity(self):
-        self.rect.centery+=2
+        self.rect.centery+=4
 
 
 plate1=Plate_form(180, 730, 350, 20, 0)
@@ -83,10 +83,10 @@ while running:
     if not pygame.sprite.spritecollide(player1, platforms, False):
         player1.gravity()
     if pygame.sprite.spritecollide(player1, platforms, False) and keys[pygame.K_w]:
-        jump_count+=100
+        jump_count+=30
     if jump_count>=0:
-        jump_count-=5
-        player1.rect.centery-=5    
+        jump_count-=1
+        player1.rect.centery-=jump_count
 
 
 
