@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.image.get_rect(center=(x, y))
     
     def gravity(self):
-        self.rect.centery+=1
+        self.rect.centery+=2
 
 
 plate1=Plate_form(180, 730, 350, 20, 0)
@@ -60,6 +60,7 @@ platforms= pygame.sprite.Group()
 players= pygame.sprite.Group()
 platforms.add(plate1, plate2, plate3)
 players.add(player1)
+jump_count=0
 
 
 running = True
@@ -70,8 +71,6 @@ while running:
 
     screen.fill("black")
     keys=pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player1.rect.centery-=2
     if keys[pygame.K_d]:
         player1.rect.centerx+=2
     if keys[pygame.K_a]:
@@ -83,6 +82,14 @@ while running:
         plates.move()
     if not pygame.sprite.spritecollide(player1, platforms, False):
         player1.gravity()
+    if pygame.sprite.spritecollide(player1, platforms, False) and keys[pygame.K_w]:
+        jump_count+=100
+    if jump_count>=0:
+        jump_count-=5
+        player1.rect.centery-=5    
+
+
+
 
     clock.tick(60)
     pygame.display.flip()
