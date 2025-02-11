@@ -73,7 +73,7 @@ class Enemy(pygame.sprite.Sprite):
 
 
 font=pygame.font.Font(None, 100)
-text_surface=font.render("loss", False, "red")
+
 
 plate1=Plate_form(180, 730, 350, 20, 0, "white")
 plate2=Plate_form(820, 730, 350, 20, 0, "white")
@@ -133,11 +133,19 @@ while running:
     if not pygame.sprite.spritecollide(player2, platforms, False):
         player2.gravity()
     if pygame.sprite.spritecollide(player1, enemies, False) or player1.rect.bottom>=800 or pygame.sprite.spritecollide(player1, bad_blue, False):
+        text_surface=font.render("loss", False, "red")
+        text_rect = text_surface.get_rect(center=(screen_width//2, screen_height//2))
+        screen.blit(text_surface,text_rect) 
         running=False
     if pygame.sprite.spritecollide(player2, enemies, False) or player1.rect.bottom>=800 or pygame.sprite.spritecollide(player2, bad_red, False):
+        text_surface=font.render("loss", False, "red")
+        text_rect = text_surface.get_rect(center=(screen_width//2, screen_height//2))
+        screen.blit(text_surface,text_rect)
         running=False
     if pygame.sprite.spritecollide(player1, winning_plate, False) and pygame.sprite.spritecollide(player2, winning_plate, False):
         text_surface=font.render("win", False, "green")
+        text_rect = text_surface.get_rect(center=(screen_width//2, screen_height//2))
+        screen.blit(text_surface,text_rect)
         running=False
     if pygame.sprite.spritecollide(player1, platforms, False) and keys[pygame.K_w] and jump_count_p1<10:
         jump_count_p1+=34
@@ -169,8 +177,9 @@ while running:
     clock.tick(60)
     pygame.display.flip()
 
-screen.blit(text_surface,[250, 250])
 pygame.time.wait(2000)
 
 pygame.quit()
 sys.exit()
+
+# it dosent mader how they look, what maders is how they are as a person - Irmoon 2/11/2025 
